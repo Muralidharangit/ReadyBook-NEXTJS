@@ -8,8 +8,10 @@ export const Grid = async () => {
   
   try {
     const res = await api.getBlogs();
-    // Handle standard array or nested { data: [...] } structure
-    if (res && Array.isArray(res.data)) {
+    // Handle standard array or nested { data: { blogs: [...] } } structure from staging API
+    if (res && res.data && Array.isArray(res.data.blogs)) {
+      posts = res.data.blogs;
+    } else if (res && Array.isArray(res.data)) {
       posts = res.data;
     } else if (Array.isArray(res)) {
       posts = res;
@@ -39,21 +41,21 @@ export const Grid = async () => {
                 {/* Blog Image Block */}
                 <div className="rounded-xl mb-5 relative overflow-hidden aspect-[4/3] border border-white/5 z-10 bg-[#100b1a] group">
                   <img
-                    src={post.image || "/images/blog_exchange.png"}
+                    src={post.image_url || post.image || "/images/blog_exchange.png"}
                     alt={post.title}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   {/* Subtle overlay for better contrast */}
                   <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
 
-                  <span className="absolute top-3 left-3 bg-gold text-black font-extrabold tracking-wider text-[0.65rem] px-3 py-1 rounded shadow-sm z-20">
-                    {post.tag || "BLOG"}
+                  <span className="absolute top-3 left-3 bg-gold text-black font-extrabold tracking-wider text-[0.65rem] px-3 py-1 rounded shadow-sm z-20 uppercase">
+                    {post.category?.name || post.tag || "BLOG"}
                   </span>
                 </div>
 
                 {/* Card Content Info */}
                 <div className="flex flex-col flex-grow text-left relative z-10">
-                  <span className="text-[0.75rem] text-gray-500 font-bold mb-3 tracking-wide uppercase group-hover:text-gray-300 transition-colors duration-500">{post.date || "Recent"}</span>
+                  <span className="text-[0.75rem] text-gray-500 font-bold mb-3 tracking-wide uppercase group-hover:text-gray-300 transition-colors duration-500">{post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (post.date || "Recent")}</span>
 
                   <h4 className="font-bold text-white text-[1.1rem] leading-snug mb-6 group-hover:text-gold transition-colors duration-500 line-clamp-2">
                     {post.title}

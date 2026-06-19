@@ -14,7 +14,8 @@ export async function generateStaticParams() {
   try {
     const res = await api.getBlogs();
     let posts: any[] = [];
-    if (res && Array.isArray(res.data)) posts = res.data;
+    if (res && res.data && Array.isArray(res.data.blogs)) posts = res.data.blogs;
+    else if (res && Array.isArray(res.data)) posts = res.data;
     else if (Array.isArray(res)) posts = res;
     
     if (posts.length > 0) {
@@ -33,11 +34,12 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  let post: BlogPost | undefined;
+  let post: any | undefined;
   
   try {
     const res = await api.getBlogBySlug(slug);
-    if (res && res.data) post = res.data;
+    if (res && res.data && res.data.blog) post = res.data.blog;
+    else if (res && res.data) post = res.data;
     else if (res && res.slug) post = res;
   } catch (error) {
     // ignore
@@ -54,30 +56,36 @@ export async function generateMetadata({ params }: PageProps) {
   }
   
   return {
-    title: `${post.title} — Reddy Book Blog`,
-    description: post.desc,
-    keywords: [post.tag, "Reddy Book Blog", "Betting Advice", "Exchange Trading"],
+    title: `${post.meta_title || post.title} — Reddy Book Blog`,
+    description: post.meta_description || post.short_description || post.desc,
+    keywords: [post.meta_keywords || post.category?.name || post.tag, "Reddy Book Blog", "Betting Advice", "Exchange Trading"],
     alternates: {
       canonical: `https://reddybook.club/blog/${slug}`,
     },
     openGraph: {
       title: `${post.title} — Reddy Book Blog`,
-      description: post.desc,
+      description: post.meta_description || post.short_description || post.desc,
       url: `https://reddybook.club/blog/${slug}`,
       siteName: "Reddy Book Exchange",
       images: [
         {
-          url: `https://reddybook.club${post.image || "/images/blog_exchange.png"}`,
+          url: post.image_url || `https://reddybook.club${post.image || "/images/blog_exchange.png"}`,
         },
       ],
       type: "article",
-      publishedTime: post.date,
+      publishedTime: post.published_at || post.date,
     },
   };
 }
 
 // Custom simple markdown to HTML parser for our articles
 function parseMarkdown(md: string): string {
+  if (!md) return "";
+  // Check if it's already HTML (from rich text editor)
+  if (md.includes('<p>') || md.includes('<h2>') || md.includes('<ul>')) {
+    return md;
+  }
+  
   let html = md.trim();
 
   // Normalize line endings
@@ -176,18 +184,19 @@ function parseMarkdown(md: string): string {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  let post: BlogPost | undefined;
-  let relatedPosts: BlogPost[] = [];
+  let post: any | undefined;
+  let relatedPosts: any[] = [];
 
   try {
     const res = await api.getBlogBySlug(slug);
-    if (res && res.data) post = res.data;
+    if (res && res.data && res.data.blog) post = res.data.blog;
+    else if (res && res.data) post = res.data;
     else if (res && res.slug) post = res;
 
     // Use a random ID or post ID for related posts, API endpoint uses /related-blogs/:id
-    // Wait, the API endpoint is /related-blogs/1 in the Postman. We will pass 1 or post.id if it exists
     const relRes = await api.getRelatedBlogs((post as any)?.id || 1);
-    if (relRes && Array.isArray(relRes.data)) relatedPosts = relRes.data;
+    if (relRes && relRes.data && Array.isArray(relRes.data.blogs)) relatedPosts = relRes.data.blogs;
+    else if (relRes && Array.isArray(relRes.data)) relatedPosts = relRes.data;
     else if (Array.isArray(relRes)) relatedPosts = relRes;
   } catch (error) {
     // ignore
@@ -217,14 +226,14 @@ export default async function BlogPostPage({ params }: PageProps) {
             <i className="bi bi-arrow-left transition-transform group-hover:-translate-x-1"></i> Back to Articles
           </Link>
           <div className="max-w-[800px]">
-            <span className="section-tag mb-4">{post.tag}</span>
+            <span className="section-tag mb-4 uppercase">{post.category?.name || post.tag || "BLOG"}</span>
             <h1 className="uppercase font-heading font-black leading-tight text-white mb-6" style={{ fontSize: "clamp(1.8rem, 4.5vw, 3.2rem)" }}>
               {post.title}
             </h1>
-            <div className="flex flex-wrap gap-4 text-xs text-dim font-semibold items-center">
-              <span><i className="bi bi-calendar3 mr-1.5 text-gold"></i>{post.date}</span>
+            <div className="flex flex-wrap gap-4 text-xs text-dim font-semibold items-center uppercase">
+              <span><i className="bi bi-calendar3 mr-1.5 text-gold"></i>{post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (post.date || "Recent")}</span>
               <span className="w-1.5 h-1.5 bg-gold/30 rounded-full"></span>
-              <span><i className="bi bi-clock mr-1.5 text-gold"></i>{post.readTime}</span>
+              <span><i className="bi bi-clock mr-1.5 text-gold"></i>{post.readTime || "5 Min Read"}</span>
             </div>
           </div>
         </div>
@@ -240,7 +249,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               <div className="glass-card p-4 md:p-8 bordergold">
                 {/* Hero image placeholder */}
                 <div className="rounded-xl overflow-hidden mb-8 max-h-[450px]">
-                  <img src={post.image} alt={post.title} className="w-full h-full object-cover" />
+                  <img src={post.image_url || post.image || "/images/blog_exchange.png"} alt={post.title} className="w-full h-full object-cover" />
                 </div>
 
                 {/* Rendered markdown body */}
@@ -304,7 +313,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                           className="group flex gap-3.5 items-center p-2 -mx-2 rounded-lg hover:bg-white/[0.02] transition-colors duration-200"
                         >
                           <img
-                            src={related.image}
+                            src={related.image_url || related.image || "/images/blog_exchange.png"}
                             alt={related.title}
                             className="w-[72px] h-[48px] rounded-md object-cover flex-shrink-0 border border-white/5 group-hover:border-gold/30 transition-colors shadow-sm"
                           />
@@ -312,8 +321,8 @@ export default async function BlogPostPage({ params }: PageProps) {
                             <h5 className="text-white font-medium text-[0.85rem] leading-tight group-hover:text-gold transition-colors duration-200 line-clamp-2 mb-1.5">
                               {related.title}
                             </h5>
-                            <span className="text-[0.65rem] text-gray-500 font-medium tracking-wide">
-                              {related.date}
+                            <span className="text-[0.65rem] text-gray-500 font-medium tracking-wide uppercase">
+                              {related.published_at ? new Date(related.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : (related.date || "Recent")}
                             </span>
                           </div>
                         </Link>
@@ -349,20 +358,20 @@ export default async function BlogPostPage({ params }: PageProps) {
                   {/* Blog Image Block */}
                   <div className="rounded-xl mb-5 relative overflow-hidden aspect-[4/3] border border-white/5 z-10 bg-[#100b1a] group-img">
                     <img
-                      src={post.image}
+                      src={post.image_url || post.image || "/images/blog_exchange.png"}
                       alt={post.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
 
-                    <span className="absolute top-3 left-3 bg-gold text-black font-extrabold tracking-wider text-[0.65rem] px-3 py-1 rounded shadow-sm z-20">
-                      {post.tag}
+                    <span className="absolute top-3 left-3 bg-gold text-black font-extrabold tracking-wider text-[0.65rem] px-3 py-1 rounded shadow-sm z-20 uppercase">
+                      {post.category?.name || post.tag || "BLOG"}
                     </span>
                   </div>
 
                   {/* Card Content Info */}
                   <div className="flex flex-col flex-grow text-left relative z-10">
-                    <span className="text-[0.75rem] text-gray-500 font-bold mb-3 tracking-wide uppercase group-hover:text-gray-300 transition-colors duration-500">{post.date}</span>
+                    <span className="text-[0.75rem] text-gray-500 font-bold mb-3 tracking-wide uppercase group-hover:text-gray-300 transition-colors duration-500">{post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (post.date || "Recent")}</span>
 
                     <h4 className="font-bold text-white text-[1.1rem] leading-snug mb-6 group-hover:text-gold transition-colors duration-500 line-clamp-2">
                       {post.title}
