@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import Button from "@/components/common/Button";
+import { api } from "@/lib/api";
 
 export const Form: React.FC = () => {
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
@@ -12,16 +14,27 @@ export const Form: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [whatsAppUrl, setWhatsAppUrl] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMsg("");
 
-    setTimeout(() => {
+    try {
+      await api.submitContactForm({
+        name,
+        email,
+        phone,
+        subject,
+        message
+      });
+
       // Construct WhatsApp URL for B2B consultation request
       const text = encodeURIComponent(
         `Hi Reddy Book! I submitted a B2B Consultation Request:\n\n` +
         `Name: ${name}\n` +
+        `Email: ${email}\n` +
         `WhatsApp/Phone: ${phone}\n` +
         `Subject: ${subject}\n` +
         `Message/Inquiry: ${message}`
@@ -31,16 +44,21 @@ export const Form: React.FC = () => {
       setWhatsAppUrl(url);
       setIsSubmitting(false);
       setIsSubmitted(true);
-    }, 1500);
+    } catch (error: any) {
+      setIsSubmitting(false);
+      setErrorMsg(error.message || "Failed to submit request. Please try again.");
+    }
   };
 
   const handleReset = () => {
     setName("");
+    setEmail("");
     setPhone("");
     setSubject("");
     setMessage("");
     setIsSubmitted(false);
     setWhatsAppUrl("");
+    setErrorMsg("");
   };
 
   return (
@@ -94,6 +112,12 @@ export const Form: React.FC = () => {
 
               {/* Form Body */}
               <form onSubmit={handleSubmit}>
+                {errorMsg && (
+                  <div className="mb-6 p-4 bg-red-500/10 border border-red-500/50 rounded-xl text-red-400 text-sm text-center">
+                    {errorMsg}
+                  </div>
+                )}
+                
                 <div className="flex flex-wrap -mx-4 gap-y-6">
                   {/* Name */}
                   <div className="w-full md:w-1/2 px-4">
@@ -108,6 +132,19 @@ export const Form: React.FC = () => {
                     />
                   </div>
                   
+                  {/* Email */}
+                  <div className="w-full md:w-1/2 px-4">
+                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Email Address *</label>
+                    <input 
+                      type="email" 
+                      className="w-full bg-white/[0.03] text-white border border-gold/20 rounded-xl px-4 py-3 focus:outline-none focus:border-gold transition-colors text-[0.9rem]"
+                      placeholder="e.g. ramesh@example.com" 
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required 
+                    />
+                  </div>
+
                   {/* Phone */}
                   <div className="w-full md:w-1/2 px-4">
                     <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">WhatsApp/Contact Number *</label>
@@ -120,9 +157,9 @@ export const Form: React.FC = () => {
                       required 
                     />
                   </div>
-                  
+
                   {/* Subject */}
-                  <div className="w-full px-4">
+                  <div className="w-full md:w-1/2 px-4">
                     <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Inquiry Subject *</label>
                     <select 
                       className="w-full bg-white/[0.03] text-white border border-gold/20 rounded-xl px-4 py-3 focus:outline-none focus:border-gold transition-colors text-[0.9rem]"
@@ -181,3 +218,4 @@ export const Form: React.FC = () => {
 };
 
 export default Form;
+
