@@ -1,55 +1,82 @@
 import React from "react";
 import Link from "next/link";
-import { blogPosts } from "@/data/blogs";
+import { blogPosts as fallbackBlogPosts, BlogPost } from "@/data/blogs";
+import { api } from "@/lib/api";
 
-export const Grid: React.FC = () => {
+export const Grid = async () => {
+  let posts: BlogPost[] = [];
+  
+  try {
+    const res = await api.getBlogs();
+    // Handle standard array or nested { data: { blogs: [...] } } structure from staging API
+    if (res && res.data && Array.isArray(res.data.blogs)) {
+      posts = res.data.blogs;
+    } else if (res && Array.isArray(res.data)) {
+      posts = res.data;
+    } else if (Array.isArray(res)) {
+      posts = res;
+    }
+  } catch (error) {
+    console.error("Failed to fetch blogs from API, using fallback data");
+  }
+
+  // Fallback to static data if API fails or returns empty
+  if (!posts || posts.length === 0) {
+    posts = fallbackBlogPosts;
+  }
+
   return (
-    <section id="blog-grid" className="py-12 bg-white/[0.02]">
+    <section id="blog-grid" className="py-16 bg-white/[0.02]">
       <div className="container mx-auto px-4 py-6">
-        <div className="flex flex-wrap -mx-4 gap-y-6">
-          {blogPosts.map((post, index) => (
-            <div key={post.slug} className="w-full lg:w-1/2 px-4">
-              <div 
-                className="glass-card blog-card p-6 h-full flex flex-col justify-between reveal-up group transition-all duration-300"
+        <div className="flex flex-wrap -mx-4 gap-y-8">
+          {posts.map((post, index) => (
+            <div key={post.slug} className="w-full md:w-1/2 lg:w-1/4 px-4">
+              <div
+                className="glass-card value-card p-4 h-full flex flex-col reveal-up group border border-gold/15 hover:border-gold rounded-2xl bg-[#0a0a0c] overflow-hidden relative"
                 style={{ animationDelay: `${(index + 1) * 0.1}s` }}
               >
-                <div>
-                  {/* Blog Image */}
-                  <div className="blog-img-placeholder rounded-xl mb-4 relative overflow-hidden aspect-video bg-cover bg-center" style={{ minHeight: "220px" }}>
-                    <img 
-                      src={post.image} 
-                      alt={post.title} 
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <span className="blog-tag absolute top-3 left-3 z-10 bg-gold text-bg-dark font-black tracking-widest text-[0.65rem] px-3 py-1 rounded">
-                      {post.tag}
-                    </span>
-                  </div>
+                {/* Subtle Inner Glow on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-b from-gold/0 to-gold/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"></div>
 
-                  {/* Meta data info */}
-                  <div className="flex justify-between items-center mb-3 text-[0.75rem] text-faint font-semibold">
-                    <span><i className="bi bi-calendar3 mr-1.5"></i>{post.date}</span>
-                    <span><i className="bi bi-clock mr-1.5"></i>{post.readTime}</span>
-                  </div>
+                {/* Blog Image Block */}
+                <div className="rounded-xl mb-5 relative overflow-hidden aspect-[4/3] border border-white/5 z-10 bg-[#100b1a] group">
+                  <img
+                    src={post.image_url || post.image || "/images/blog_exchange.png"}
+                    alt={post.title}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  />
+                  {/* Subtle overlay for better contrast */}
+                  <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700 z-10"></div>
 
-                  {/* Title */}
-                  <h4 className="font-heading font-extrabold text-white text-[1.25rem] leading-snug mb-4 group-hover:text-gold transition-colors duration-300">
+                  <span className="absolute top-3 left-3 bg-gold text-black font-extrabold tracking-wider text-[0.65rem] px-3 py-1 rounded shadow-sm z-20 uppercase">
+                    {post.category?.name || post.tag || "BLOG"}
+                  </span>
+                </div>
+
+                {/* Card Content Info */}
+                <div className="flex flex-col flex-grow text-left relative z-10">
+                  <span className="text-[0.75rem] text-gray-500 font-bold mb-3 tracking-wide uppercase group-hover:text-gray-300 transition-colors duration-500">{post.published_at ? new Date(post.published_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : (post.date || "Recent")}</span>
+
+                  <h4 className="font-bold text-white text-[1.1rem] leading-snug mb-6 group-hover:text-gold transition-colors duration-500 line-clamp-2">
                     {post.title}
                   </h4>
 
-                  {/* Description */}
-                  <p className="text-dim text-[0.9rem] leading-relaxed mb-6">
-                    {post.desc}
-                  </p>
-                </div>
+                  {/* Read More Button */}
+                  <div className="mt-auto">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="group/btn flex items-center justify-center w-full border border-white/20 text-white font-bold py-2.5 rounded-lg hover:border-gold hover:text-black transition-colors duration-500 text-[0.85rem] tracking-wide relative overflow-hidden"
+                    >
+                      {/* Left-to-Right Button Fill */}
+                      <div className="absolute inset-0 w-full h-full bg-gold transform -translate-x-full group-hover/btn:translate-x-0 transition-transform duration-500 ease-out z-0"></div>
 
-                {/* Read More Link */}
-                <Link 
-                  href={`/blog/${post.slug}`} 
-                  className="gold-text inline-flex items-center gap-1.5 font-bold hover:brightness-110 transition-all w-fit"
-                >
-                  Read More <i className="bi bi-arrow-right"></i>
-                </Link>
+                      <span className="relative z-10 flex items-center group-hover/btn:-translate-x-2 transition-transform duration-500">
+                        Read More
+                      </span>
+                      <i className="bi bi-arrow-right absolute right-1/4 opacity-0 transform translate-x-4 group-hover/btn:opacity-100 group-hover/btn:translate-x-8 transition-all duration-500 z-10"></i>
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

@@ -2,9 +2,9 @@ import React from "react";
 
 export const Leagues: React.FC = () => {
   return (
-    <section id="leagues">
-      <div 
-        className="glow-orb glow-purple w-[500px] h-[500px] bottom-0 -right-[100px] pointer-events-none" 
+    <section id="leagues" className="py-24 relative overflow-hidden border-t border-white/5" style={{ background: 'linear-gradient(180deg, #11141d 0%, #0c0e14 100%)' }}>
+      <div
+        className="glow-orb glow-purple w-[500px] h-[500px] bottom-0 -right-[100px] pointer-events-none"
         aria-hidden="true"
       />
 
@@ -230,14 +230,14 @@ export const Leagues: React.FC = () => {
           {/* Visual Column */}
           <div className="w-full lg:w-1/2 px-4 text-center reveal-left">
             <div className="relative inline-block w-full">
-              <div 
-                className="glow-orb glow-gold w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" 
+              <div
+                className="glow-orb glow-gold w-[300px] h-[300px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
                 aria-hidden="true"
               />
               <div className="about-img-wrap relative">
-                <img 
-                  src="/images/WINIMG.png" 
-                  alt="Why Choose Reddy Book Exchange"
+                <img
+                  src="/images/WINIMG.png"
+                  alt="Reddy Book"
                   className="w-full about-img relative"
                 />
                 <div className="about-prize-badge">
@@ -249,12 +249,12 @@ export const Leagues: React.FC = () => {
 
           {/* Content Column */}
           <div className="w-full lg:w-1/2 px-4 reveal-right">
-            <span className="section-tag">Judging Criteria</span>
+            <span className="section-tag">🏆 India&apos;s Preferred Choice</span>
             <h2 className="mb-6 uppercase leading-tight font-heading font-extrabold" style={{ fontSize: "clamp(1.8rem, 4vw, 2.8rem)" }}>
-              HOW ARE <span className="gold-text">WINNERS</span><br />DETERMINED?
+              Why Players<span className="gold-text">Choose Reddy Book</span><br />
             </h2>
             <p className="mb-6 text-muted leading-relaxed">
-              Winners are selected through a rigorous process combining editorial review, audience engagement metrics, and platform activity scores.
+              The growing popularity of Reddy Book comes from its commitment providing a secure, rewarding, and enjoyable betting environment. From instant registration and fast payments extensive sports markets and casino games, Reddy Book offers complete online gaming solution. Whether you're interested in cricket betting, live casino action, daily gaming entertainment, Reddy Book remains one of the most trusted platforms in India. Create your Reddy Book ID today and experience everything that Reddy Book has offer.
             </p>
 
             {/* Rules */}

@@ -41,15 +41,15 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, gameTitle, onClose
   if (!isOpen) return null;
 
   return (
-    <div 
+    <div
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md transition-opacity duration-300"
       onClick={onClose}
     >
-      <div 
+      <div
         className="w-full max-w-[500px] modal-content-glass p-8 bordergold shadow-2xl relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <button 
+        <button
           onClick={onClose}
           className="absolute top-4 right-4 text-dim hover:text-white text-2xl font-bold focus:outline-none transition-colors"
           aria-label="Close modal"
@@ -64,8 +64,8 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, gameTitle, onClose
             </h4>
             <p className="text-muted text-[0.88rem] mb-6">Connecting to secure exchange lobby...</p>
             <div className="demo-progress mb-4 bg-white/[0.05] h-1.5 rounded-full overflow-hidden">
-              <div 
-                className="demo-bar h-full bg-gold shadow-[0_0_10px_#fcd45a] transition-all duration-100 ease-out" 
+              <div
+                className="demo-bar h-full bg-gold shadow-[0_0_10px_#fcd45a] transition-all duration-100 ease-out"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>
@@ -86,8 +86,8 @@ export const DemoModal: React.FC<DemoModalProps> = ({ isOpen, gameTitle, onClose
               <Button href="https://wa.me/919999999999" target="_blank" variant="gold" className="w-full py-4 font-bold text-center">
                 <i className="bi bi-whatsapp"></i> Get Live ID Now
               </Button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={onClose}
                 className="btn-gold-outline w-full py-2.5 text-center font-bold text-dim hover:text-white"
               >

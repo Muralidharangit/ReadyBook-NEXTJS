@@ -1,12 +1,21 @@
 export interface BlogPost {
   slug: string;
   title: string;
-  tag: string;
-  date: string;
-  readTime: string;
-  desc: string;
-  image: string;
+  tag?: string; // Optional since API uses category.name
+  date?: string; // Optional since API uses published_at
+  readTime?: string;
+  desc?: string;
+  image?: string; // Optional since API uses image_url
   content?: string;
+  // --- New fields from Live API ---
+  id?: number;
+  category?: { id: number; name: string; slug: string };
+  image_url?: string;
+  short_description?: string;
+  published_at?: string;
+  meta_title?: string;
+  meta_description?: string;
+  meta_keywords?: string;
 }
 
 export const blogPosts: BlogPost[] = [

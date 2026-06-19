@@ -3,7 +3,7 @@ import Button from "@/components/common/Button";
 
 export const Channels: React.FC = () => {
   return (
-    <section className="py-12 bg-white/[0.02]">
+    <section className="py-12 bg-white/[0.01]">
       <div className="container mx-auto px-4 py-6">
         <div className="flex flex-wrap -mx-4 gap-y-6">
           {/* WhatsApp Support */}
@@ -14,14 +14,14 @@ export const Channels: React.FC = () => {
                   <div className="contact-item-icon text-gold text-2xl w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center border border-gold/15">
                     <i className="bi bi-whatsapp"></i>
                   </div>
-                  <h4 className="font-heading font-extrabold text-white text-[1.15rem] mb-0">WhatsApp Support</h4>
+                  <h4 className="font-heading font-extrabold text-white text-[1.15rem] mb-0">Consulting WhatsApp</h4>
                 </div>
-                <p className="text-dim text-[0.9rem] leading-relaxed mb-6">
-                  Use WhatsApp for instant setup of your Betting ID, deposits, credit additions, and rapid 2-minute auto-withdrawals.
+                <p className="text-muted text-[0.9rem] leading-relaxed mb-6">
+                  Chat directly with our core advisors to configure self-service dashboards, request live platform demos, and discuss transaction fee models.
                 </p>
               </div>
               <Button href="https://wa.me/919999999999" target="_blank" variant="gold-outline" className="w-full py-2.5">
-                Start Live Chat
+                Start Consultation
               </Button>
             </div>
           </div>
@@ -36,12 +36,12 @@ export const Channels: React.FC = () => {
                   </div>
                   <h4 className="font-heading font-extrabold text-white text-[1.15rem] mb-0">Telegram Channel</h4>
                 </div>
-                <p className="text-dim text-[0.9rem] leading-relaxed mb-6">
-                  Join our Telegram channel to receive betting prediction sheets, match fixtures, live odds shifts, and special loyalty offers.
+                <p className="text-muted text-[0.9rem] leading-relaxed mb-6">
+                  Join our official B2B channel to monitor API announcements, maintenance logs, security patches, and release notes for modules.
                 </p>
               </div>
-              <Button href="https://wa.me/919999999999" target="_blank" variant="gold-outline" className="w-full py-2.5">
-                Join Official Channel
+              <Button href="https://t.me/reddybook_official" target="_blank" variant="gold-outline" className="w-full py-2.5">
+                Join Channel
               </Button>
             </div>
           </div>
@@ -56,12 +56,12 @@ export const Channels: React.FC = () => {
                   </div>
                   <h4 className="font-heading font-extrabold text-white text-[1.15rem] mb-0">Email Support</h4>
                 </div>
-                <p className="text-dim text-[0.9rem] leading-relaxed mb-6">
-                  Send us an email for institutional business proposals, payment verification disputes, and marketing inquiries.
+                <p className="text-muted text-[0.9rem] leading-relaxed mb-6">
+                  Submit enterprise level inquiries, contract proposals, partnership offerings, or customized feature requests to our relationships desk.
                 </p>
               </div>
               <Button href="mailto:support@reddybook.club" variant="gold-outline" className="w-full py-2.5">
-                Send Email
+                Send Message
               </Button>
             </div>
           </div>
