@@ -1,5 +1,18 @@
+/**
+ * ==========================================
+ * CENTRAL API CLIENT
+ * ==========================================
+ * This file is the "menu" of all backend requests. 
+ * If a component needs data, it imports `api` from here.
+ */
+
+// 1. Check if this code is running in the browser or on the server.
 const isServer = typeof window === "undefined";
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || (isServer ? 'http://127.0.0.1:8001/api/v1' : '/api-backend/v1');
+
+// 2. Determine the correct Base URL based on the environment:
+// - Server-side (SSR): Connects directly to the live staging backend.
+// - Client-side (Browser): Uses the Next.js local proxy ('/api-backend/v1') to bypass CORS security blocks.
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || (isServer ? 'https://staging.admin.reddybook247.net/api/v1' : '/api-backend/v1');
 
 export interface ContactFormData {
   name: string;
