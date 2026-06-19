@@ -1,28 +1,58 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { blogPosts } from "@/data/blogs";
+import { blogPosts as fallbackBlogPosts, BlogPost } from "@/data/blogs";
 import Button from "@/components/common/Button";
 import SubPageCTA from "@/components/common/SubPageCTA";
+import { api } from "@/lib/api";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return blogPosts.map((post) => ({
+  try {
+    const res = await api.getBlogs();
+    let posts: any[] = [];
+    if (res && Array.isArray(res.data)) posts = res.data;
+    else if (Array.isArray(res)) posts = res;
+    
+    if (posts.length > 0) {
+      return posts.map((post) => ({
+        slug: post.slug,
+      }));
+    }
+  } catch (error) {
+    // ignore and fallback
+  }
+
+  return fallbackBlogPosts.map((post) => ({
     slug: post.slug,
   }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  let post: BlogPost | undefined;
+  
+  try {
+    const res = await api.getBlogBySlug(slug);
+    if (res && res.data) post = res.data;
+    else if (res && res.slug) post = res;
+  } catch (error) {
+    // ignore
+  }
+
+  if (!post) {
+    post = fallbackBlogPosts.find((p) => p.slug === slug);
+  }
+
   if (!post) {
     return {
       title: "Post Not Found",
     };
   }
+  
   return {
     title: `${post.title} — Reddy Book Blog`,
     description: post.desc,
@@ -37,7 +67,7 @@ export async function generateMetadata({ params }: PageProps) {
       siteName: "Reddy Book Exchange",
       images: [
         {
-          url: `https://reddybook.club${post.image}`,
+          url: `https://reddybook.club${post.image || "/images/blog_exchange.png"}`,
         },
       ],
       type: "article",
@@ -46,7 +76,7 @@ export async function generateMetadata({ params }: PageProps) {
   };
 }
 
-// Custom simple markdown to HTML parser for our 4 articles
+// Custom simple markdown to HTML parser for our articles
 function parseMarkdown(md: string): string {
   let html = md.trim();
 
@@ -146,14 +176,35 @@ function parseMarkdown(md: string): string {
 
 export default async function BlogPostPage({ params }: PageProps) {
   const { slug } = await params;
-  const post = blogPosts.find((p) => p.slug === slug);
+  let post: BlogPost | undefined;
+  let relatedPosts: BlogPost[] = [];
+
+  try {
+    const res = await api.getBlogBySlug(slug);
+    if (res && res.data) post = res.data;
+    else if (res && res.slug) post = res;
+
+    // Use a random ID or post ID for related posts, API endpoint uses /related-blogs/:id
+    // Wait, the API endpoint is /related-blogs/1 in the Postman. We will pass 1 or post.id if it exists
+    const relRes = await api.getRelatedBlogs((post as any)?.id || 1);
+    if (relRes && Array.isArray(relRes.data)) relatedPosts = relRes.data;
+    else if (Array.isArray(relRes)) relatedPosts = relRes;
+  } catch (error) {
+    // ignore
+  }
+
+  if (!post) {
+    post = fallbackBlogPosts.find((p) => p.slug === slug);
+  }
 
   if (!post) {
     notFound();
   }
 
-  // Filter other posts for recommendations
-  const relatedPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 3);
+  if (!relatedPosts || relatedPosts.length === 0) {
+    relatedPosts = fallbackBlogPosts.filter((p) => p.slug !== slug).slice(0, 3);
+  }
+
   const parsedContent = parseMarkdown(post.content || "");
 
   return (
