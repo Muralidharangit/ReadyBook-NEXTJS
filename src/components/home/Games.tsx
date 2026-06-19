@@ -150,7 +150,7 @@ export const Games: React.FC = () => {
   return (
     <>
       {/* Live Ticker Section */}
-      <section id="live-ticker">
+      <section id="live-ticker" className="bg-bg-dark border-t border-white/5">
         <div className="ticker-header-bar">
           <div className="ticker-live-label">
             <span className="ticker-live-dot"></span>
@@ -221,7 +221,7 @@ export const Games: React.FC = () => {
       </section>
 
       {/* Simulator Section */}
-      <section id="live-markets" className="py-24 bg-bg-secondary relative border-y border-white/5">
+      <section id="live-markets" className="py-24 bg-grid-gold-pattern relative border-y border-white/5">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12 reveal-up">
             <span className="section-tag">⚡ PLAY DEMO SPORTSBOOK &amp; EXCHANGE</span>

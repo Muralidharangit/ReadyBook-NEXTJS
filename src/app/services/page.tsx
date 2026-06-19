@@ -1,32 +1,71 @@
 import React from "react";
-import PageHero from "@/components/services/PageHero";
-import Offerings from "@/components/services/Offerings";
-import ComparisonTable from "@/components/services/ComparisonTable";
-import SubPageCTA from "@/components/common/SubPageCTA";
+import B2BHero from "@/components/services/B2BHero";
+import B2BOfferings from "@/components/services/B2BOfferings";
+import B2BFeaturedSolutions from "@/components/services/B2BFeaturedSolutions";
+import B2BDeveloperPlatform from "@/components/services/B2BDeveloperPlatform";
+import B2BWhyChoose from "@/components/services/B2BWhyChoose";
+import B2BContact from "@/components/services/B2BContact";
 
 export const metadata = {
-  title: "Premium Services — Reddy Book Exchange",
-  description: "Explore Reddy Book services, including our peer-to-peer sports betting exchange, live dealer casino suites, 60-second account setups, and instant 2-minute UPI cashouts.",
-  keywords: ["Reddy Book Services", "P2P Sports Exchange", "Live Casino Suites", "UPI Cashout"],
+  title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
+  description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
+  keywords: [
+    "Reddy Book B2B",
+    "Online Casino Payment Solutions",
+    "Self-Service Casino Solution",
+    "Multi-Provider Casino Integration",
+    "White Label Casino Solution",
+    "Managed Services by Reddy Book",
+    "Self-Service Casino Platform",
+    "Casino Game Aggregator",
+    "B2B Casino Platform",
+    "Reddy Book Operator ID"
+  ],
   alternates: {
     canonical: "https://reddybook.club/services",
   },
   openGraph: {
-    title: "Premium Services — Reddy Book Exchange",
-    description: "Explore Reddy Book services, including our peer-to-peer sports betting exchange, live dealer casino suites, 60-second account setups, and instant 2-minute UPI cashouts.",
+    title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
+    description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
     url: "https://reddybook.club/services",
     siteName: "Reddy Book Exchange",
+    images: [
+      {
+        url: "https://reddybook.club/images/Logo.png",
+        width: 800,
+        height: 600,
+      },
+    ],
+    locale: "en_IN",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
+    description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
+    images: ["https://reddybook.club/images/Logo.png"],
   },
 };
 
 export default function ServicesPage() {
   return (
     <>
-      <PageHero />
-      <Offerings />
-      <ComparisonTable />
-      <SubPageCTA />
+      <B2BHero />
+      <hr className="gold-divider max-w-[700px]" />
+      
+      <B2BOfferings />
+      <hr className="gold-divider max-w-[700px]" />
+      
+      <B2BFeaturedSolutions />
+      <hr className="gold-divider max-w-[700px]" />
+      
+      <B2BDeveloperPlatform />
+      <hr className="gold-divider max-w-[700px]" />
+      
+      <B2BWhyChoose />
+      <hr className="gold-divider max-w-[700px]" />
+      
+      <B2BContact />
     </>
   );
 }

@@ -91,28 +91,27 @@ export const Hero: React.FC = () => {
             <div className="flex flex-wrap -mx-4 gap-y-6 items-center">
               <div className="w-full lg:w-6/12 px-4 text-center lg:text-left">
                 <div className="hero-badge">
-                  <span className="dot"></span> 🔥 INSTANT ID SETUP · 24/7 PAYOUTS
+                  <span className="dot"></span> 🔥 India’s Trusted Online Betting Platform
                 </div>
                 <h1 className="hero-title text-white mb-2 leading-tight">
-                  <span className="gold-text">SPORTSBOOK </span>
+                  <span className="gold-text">Welcome to Reddy book </span>
                   <br />
                   BETTING
                 </h1>
                 <div className="hero-prize-block mb-6">
                   <div className="hero-giveaway-sub uppercase text-gold font-semibold tracking-wider">
-                    Get Best Live Odds &amp; Instant ID
+                   Official Reddy Book Cricket Betting and &amp; Live Casino 
                   </div>
                 </div>
                 <p className="hero-desc mb-6 max-w-[560px] font-medium text-muted">
-                  Join the premier sportsbook with the highest market rates. Experience the rush of live in-play
-                  betting with 100% secure deposits and rapid withdrawals.
+                 Welcome to Reddy Book, one of India’s most popular platforms for sports betting and online gaming.
                 </p>
                 <div className="flex flex-row gap-3 justify-center lg:justify-start mb-6">
                   <a href="#cta-section" className="btn btn-gold inline-flex items-center justify-center gap-2">
-                    <i className="bi bi-person-plus-fill"></i> Sign Up
+                    <i className="bi bi-person-plus-fill"></i> Reddy Book ID
                   </a>
                   <a href="#live-markets" className="btn btn-gold-outline inline-flex items-center justify-center gap-2">
-                    <i className="bi bi-graph-up"></i> Contact Us
+                    <i className="bi bi-graph-up"></i> Contact Support
                   </a>
                 </div>
                 <div className="supported-by-row flex items-center justify-center lg:justify-start gap-2 mb-6">
@@ -127,7 +126,7 @@ export const Hero: React.FC = () => {
                   <div className="hero-img-card relative z-5">
                     <img
                       src="/images/bn1.png"
-                      alt="Sportsbook Betting - Cricket Soccer Tennis Exchange"
+                      alt="Reddy Book"
                       className="w-full relative z-2 max-w-[460px]"
                       loading="lazy"
                     />
@@ -148,21 +147,20 @@ export const Hero: React.FC = () => {
             <div className="flex flex-wrap -mx-4 gap-y-6 items-center">
               <div className="w-full lg:w-6/12 px-4 text-center lg:text-left">
                 <div className="hero-badge">
-                  <span className="dot"></span> 🏆 P2P EXCHANGE · LIVE MATCH ODDS
+                  <span className="dot"></span> 🏆 Instant deposits to quick UPI withdrawals
                 </div>
                 <h1 className="hero-title text-white mb-2 leading-tight">
-                  <span className="gold-text">ALL SPORTS</span>
+                  <span className="gold-text">Get your Reddy </span>
                   <br />
-                  EXCHANGE
+                 Book ID instantly
                 </h1>
                 <div className="hero-prize-block mb-6">
                   <div className="hero-giveaway-sub uppercase text-gold font-semibold tracking-wider">
-                    Low Commission &amp; High Liquidity
+                    secure payments and 24/7 support &amp; on Reddy Book. 
                   </div>
                 </div>
                 <p className="hero-desc mb-6 max-w-[560px] font-medium text-muted">
-                  Trade your opinions on thousands of global sports events. Back for or Lay against outcomes in
-                  real-time on our state-of-the-art peer-to-peer exchange.
+                 Reddy Book offers experience for players who enjoy cricket betting, live casino games, football betting, Teen Patti much more.
                 </p>
                 <div className="flex flex-row gap-3 justify-center lg:justify-start mb-6">
                   <a href="#cta-section" className="btn btn-gold inline-flex items-center justify-center gap-2">
@@ -184,7 +182,7 @@ export const Hero: React.FC = () => {
                   <div className="hero-img-card relative z-5">
                     <img
                       src="/images/bn3.png"
-                      alt="Sportsbook Betting - Cricket Soccer Tennis Exchange"
+                      alt="Reddy Book"
                       className="w-full relative z-2 max-w-[460px]"
                       loading="lazy"
                     />
@@ -241,7 +239,7 @@ export const Hero: React.FC = () => {
                   <div className="hero-img-card relative z-5">
                     <img
                       src="/images/WOMEN WITH CASINO.png"
-                      alt="Sportsbook Betting - Cricket Soccer Tennis Exchange"
+                      alt="Reddy Book"
                       className="w-full relative z-2 max-w-[460px]"
                       loading="lazy"
                     />

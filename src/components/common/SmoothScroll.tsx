@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 
 export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();
+  const lenisRef = useRef<Lenis | null>(null);
 
   // 1. Initialize Lenis Smooth Scroll
   useEffect(() => {
@@ -14,6 +15,8 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
     });
+
+    lenisRef.current = lenis;
 
     let rafId: number;
     const raf = (time: number) => {
@@ -26,10 +29,23 @@ export const SmoothScroll: React.FC<{ children: React.ReactNode }> = ({ children
     return () => {
       cancelAnimationFrame(rafId);
       lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  // 2. Initialize Scroll Reveal Animations on Route Change
+  // 2. Handle scroll reset and resize on route change
+  useEffect(() => {
+    if (lenisRef.current) {
+      // Immediately reset scroll to top on page navigation
+      lenisRef.current.scrollTo(0, { immediate: true });
+      // Recalculate container heights for the new page layout
+      setTimeout(() => {
+        lenisRef.current?.resize();
+      }, 100);
+    }
+  }, [pathname]);
+
+  // 3. Initialize Scroll Reveal Animations on Route Change
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {

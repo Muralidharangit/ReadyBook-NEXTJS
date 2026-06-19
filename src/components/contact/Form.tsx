@@ -18,13 +18,13 @@ export const Form: React.FC = () => {
     setIsSubmitting(true);
 
     setTimeout(() => {
-      // Construct WhatsApp URL
+      // Construct WhatsApp URL for B2B consultation request
       const text = encodeURIComponent(
-        `Hi Support! I submitted a contact request:\n\n` +
+        `Hi Reddy Book! I submitted a B2B Consultation Request:\n\n` +
         `Name: ${name}\n` +
-        `WhatsApp: ${phone}\n` +
+        `WhatsApp/Phone: ${phone}\n` +
         `Subject: ${subject}\n` +
-        `Message: ${message}`
+        `Message/Inquiry: ${message}`
       );
       const url = `https://wa.me/919999999999?text=${text}`;
       
@@ -44,15 +44,15 @@ export const Form: React.FC = () => {
   };
 
   return (
-    <section id="contact-form-section" className="py-12">
+    <section id="contact-form-section" className="py-12 bg-bg-dark">
       <div className="container mx-auto px-4 py-6">
         <div className="text-center mb-12 reveal-up">
-          <span className="section-tag">✍️ Drop Us A Line</span>
-          <h2 className="mb-4 font-heading font-extrabold uppercase leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
-            SUBMIT A <span className="gold-text">REQUEST</span>
+          <span className="section-tag">✍️ Request Consultation</span>
+          <h2 className="mb-4 font-heading font-extrabold uppercase leading-tight text-white" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
+            Submit A <span className="gold-text">Request</span>
           </h2>
           <p className="text-muted max-w-[550px] mx-auto">
-            Need support but not on WhatsApp? Fill out this secure form and an agent will reply via email.
+            Fill out this secure form and a B2B gaming advisor will get back to you with platform details and documentation links.
           </p>
         </div>
 
@@ -71,7 +71,7 @@ export const Form: React.FC = () => {
                 </div>
                 <h3 className="font-heading font-black text-white text-[1.4rem] mb-2 uppercase">REQUEST SUBMITTED</h3>
                 <p className="text-dim text-[0.95rem] max-w-[480px] leading-relaxed mb-6">
-                  We have received your support request! To receive priority assistance and resolve this immediately, click below to chat with an agent on WhatsApp.
+                  We have received your B2B inquiry! To fast-track your request and connect with our technical consultants right away, click below to chat on WhatsApp.
                 </p>
                 <div className="w-full flex flex-col gap-2 max-w-[320px]">
                   <Button 
@@ -80,12 +80,12 @@ export const Form: React.FC = () => {
                     variant="gold" 
                     className="w-full py-4 text-center font-bold"
                   >
-                    <i className="bi bi-whatsapp"></i> Priority WhatsApp Chat
+                    <i className="bi bi-whatsapp"></i> Priority Consultant Chat
                   </Button>
                   <button 
                     type="button" 
                     onClick={handleReset}
-                    className="btn-gold-outline w-full py-2 text-center text-dim hover:text-white"
+                    className="btn-gold-outline w-full py-2 text-center text-dim hover:text-white cursor-pointer"
                   >
                     Submit Another Request
                   </button>
@@ -110,7 +110,7 @@ export const Form: React.FC = () => {
                   
                   {/* Phone */}
                   <div className="w-full md:w-1/2 px-4">
-                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">WhatsApp Number *</label>
+                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">WhatsApp/Contact Number *</label>
                     <input 
                       type="tel" 
                       className="w-full bg-white/[0.03] text-white border border-gold/20 rounded-xl px-4 py-3 focus:outline-none focus:border-gold transition-colors text-[0.9rem]"
@@ -123,7 +123,7 @@ export const Form: React.FC = () => {
                   
                   {/* Subject */}
                   <div className="w-full px-4">
-                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Subject *</label>
+                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Inquiry Subject *</label>
                     <select 
                       className="w-full bg-white/[0.03] text-white border border-gold/20 rounded-xl px-4 py-3 focus:outline-none focus:border-gold transition-colors text-[0.9rem]"
                       value={subject}
@@ -131,20 +131,21 @@ export const Form: React.FC = () => {
                       required
                     >
                       <option value="" disabled className="bg-bg-dark">Select a topic</option>
-                      <option value="General Support" className="bg-bg-dark">General Support / ID Setup</option>
-                      <option value="Payment Settlement" className="bg-bg-dark">Deposit / Withdrawal Issue</option>
-                      <option value="Account ID Lock" className="bg-bg-dark">Betting ID Lock / Password Reset</option>
-                      <option value="Business Proposal" className="bg-bg-dark">Business / Marketing Partnership</option>
+                      <option value="White Label Casino Solution" className="bg-bg-dark">White Label Casino Platform</option>
+                      <option value="Online Casino Payment Gateway" className="bg-bg-dark">Payment Processing Gateway</option>
+                      <option value="Multi-Provider Game API" className="bg-bg-dark">Game Provider API Integration</option>
+                      <option value="Self-Service Casino Platform" className="bg-bg-dark">Self-Service Casino / Developer Tools</option>
+                      <option value="Managed Services Consultation" className="bg-bg-dark">Managed Platform Services</option>
                     </select>
                   </div>
                   
                   {/* Message */}
                   <div className="w-full px-4">
-                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Message *</label>
+                    <label className="block mb-2 font-semibold text-white text-[0.88rem] text-left">Business Inquiry Details *</label>
                     <textarea 
                       className="w-full bg-white/[0.03] text-white border border-gold/20 rounded-xl px-4 py-3 focus:outline-none focus:border-gold transition-colors text-[0.9rem]"
                       rows={5} 
-                      placeholder="Write your query here..." 
+                      placeholder="Please describe your platform requirements, project timeline, and expected monthly volume..." 
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       required
@@ -156,15 +157,15 @@ export const Form: React.FC = () => {
                     <button 
                       type="submit" 
                       disabled={isSubmitting}
-                      className="w-full sm:w-auto btn btn-gold btn-lg px-12 py-4 flex items-center justify-center gap-2 mx-auto disabled:opacity-75 disabled:cursor-not-allowed"
+                      className="w-full sm:w-auto btn btn-gold btn-lg px-12 py-4 flex items-center justify-center gap-2 mx-auto disabled:opacity-75 disabled:cursor-not-allowed cursor-pointer"
                     >
                       {isSubmitting ? (
                         <>
                           <span className="w-4 h-4 border-2 border-bg-dark border-t-transparent rounded-full animate-spin"></span>
-                          Submitting...
+                          Submitting Request...
                         </>
                       ) : (
-                        "Submit Support Request"
+                        "Submit B2B Inquiry"
                       )}
                     </button>
                   </div>

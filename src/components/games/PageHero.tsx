@@ -8,12 +8,14 @@ export const PageHero: React.FC = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-wrap -mx-5 gap-y-12 items-center">
           {/* Text Info */}
-          <div className="w-full lg:w-7/12 px-4 text-center lg:text-left reveal-left">
-            <span className="section-tag mb-4">🎰 Games Lobby</span>
-            <h1 className="mb-6 uppercase leading-tight font-heading font-black" style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)" }}>
+          <div className="w-full lg:w-1/2 px-4 flex flex-col items-center lg:items-start text-center lg:text-left reveal-left space-y-6">
+            <div>
+              <span className="section-tag inline-block">🎰 Games Lobby</span>
+            </div>
+            <h1 className="uppercase leading-tight font-heading font-black" style={{ fontSize: "clamp(2rem, 5vw, 3.8rem)" }}>
               THRILLING LIVE <span className="gold-text">CASINO &amp; SPORTS</span>
             </h1>
-            <p className="text-dim text-[1.1rem] leading-[1.7] max-w-[540px] mx-auto lg:mx-0 mb-6">
+            <p className="text-dim text-[1.1rem] leading-[1.7] max-w-[540px]">
               Explore our massive selection of live sports exchanges, HD virtual casino lobbies, card classics, and video slot reels.
             </p>
             <div className="flex flex-wrap justify-center lg:justify-start gap-3">
@@ -27,12 +29,20 @@ export const PageHero: React.FC = () => {
           </div>
 
           {/* Secure Card Visual */}
-          <div className="w-full lg:w-5/12 px-4 text-center reveal-right">
-            <div className="glass-card p-6 bordergold max-w-[400px] mx-auto">
-              <h4 className="gold-text mb-4 font-heading font-extrabold text-[1.25rem]">LIVE RTP 98.4%</h4>
-              <p className="text-muted text-[0.9rem] mb-0 leading-relaxed">
-                Experience high conversion, verified RNG algorithms, and top-tier dealer payouts across all lobby tables.
-              </p>
+          <div className="w-full lg:w-1/2 px-4 text-center reveal-right mt-12 lg:mt-0">
+            <div className="relative max-w-[450px] mx-auto">
+              {/* Decorative background glow */}
+              <div className="absolute inset-0 bg-gold/20 blur-[100px] rounded-full pointer-events-none"></div>
+              
+              <div className="glass-card value-card p-10 border border-gold/20 relative z-10 text-center">
+                <div className="w-20 h-20 mx-auto rounded-full bg-gold/10 border border-gold/30 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(252,212,90,0.2)] group-hover:scale-110 transition-transform duration-500">
+                  <i className="bi bi-shield-check gold-text text-4xl"></i>
+                </div>
+                <h4 className="gold-text mb-4 font-heading font-extrabold text-[1.4rem] uppercase tracking-wide">LIVE RTP 98.4%</h4>
+                <p className="text-dim text-[1rem] mb-0 leading-relaxed">
+                  Experience high conversion, verified RNG algorithms, and top-tier dealer payouts across all lobby tables.
+                </p>
+              </div>
             </div>
           </div>
         </div>

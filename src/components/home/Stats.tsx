@@ -2,7 +2,7 @@ import React from "react";
 
 export const Stats: React.FC = () => {
   return (
-    <section id="social-stats">
+    <section id="social-stats" className="py-0 relative overflow-hidden border-t border-white/5">
       <div className="stats-bg-glow" aria-hidden="true"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-12 reveal-up">

@@ -23,7 +23,9 @@ export default function BlogPage() {
   return (
     <>
       <PageHero />
+      <hr className="gold-divider max-w-[700px]" />
       <Grid />
+      <hr className="gold-divider max-w-[700px]" />
       <SubPageCTA />
     </>
   );
