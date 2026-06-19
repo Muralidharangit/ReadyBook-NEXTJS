@@ -29,7 +29,7 @@ export const metadata = {
     "Reddy Book Sports Betting",
     "Reddy Book Live Casino",
     "Reddy Book Casino Games",
-    "Reddy Book Deposite"
+    "Reddy Book Deposit"
   ],
   alternates: {
     canonical: "https://reddybook.club/",

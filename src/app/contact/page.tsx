@@ -4,22 +4,36 @@ import Channels from "@/components/contact/Channels";
 import Form from "@/components/contact/Form";
 
 export const metadata = {
-  title: "Contact Reddy Book | B2B Casino & Gaming Consultants",
-  description: "Connect with Reddy Book's gaming consultants. Get started with our B2B casino platform, payment gateways, self-service solutions, and white label casino systems.",
+  title: "Contact Reddy Book | 24/7 Customer Support & Reddy Book Assistance",
+  description: "Contact Reddy Book for Get fast and reliable help from the Reddy Book support team 24/7.",
   keywords: [
+    "Reddy Book Contact Us",
     "Contact Reddy Book",
-    "Reddy Book B2B Support",
-    "Gaming Consultants",
-    "Casino Platform Inquiry",
-    "Launch Casino Platform",
-    "B2B Casino Setup"
+    "Reddy Book Customer Support",
+    "Reddy Book Help",
+    "Reddy Book WhatsApp Support",
+    "Reddy Book Contact Number",
+    "Reddy Book Support Team",
+    "Reddy Book ID Support",
+    "Reddy Book Login Help",
+    "Reddy Book Deposit Support",
+    "Reddy Book Withdrawal Support",
+    "Reddy Book Account Verification",
+    "Reddy Book Registration Help",
+    "Reddy Book 24/7 Support",
+    "Reddy Book Customer Service",
+    "Reddy Book Assistance",
+    "Reddy Book Online Support",
+    "Reddy Book Contact Details",
+    "Reddy Book User Support",
+    "Reddy Book Support Center"
   ],
   alternates: {
     canonical: "https://reddybook.club/contact",
   },
   openGraph: {
-    title: "Contact Reddy Book | B2B Casino & Gaming Consultants",
-    description: "Connect with Reddy Book's gaming consultants. Get started with our B2B casino platform, payment gateways, self-service solutions, and white label casino systems.",
+    title: "Contact Reddy Book | 24/7 Customer Support & Reddy Book Assistance",
+    description: "Contact Reddy Book for Get fast and reliable help from the Reddy Book support team 24/7.",
     url: "https://reddybook.club/contact",
     siteName: "Reddy Book Exchange",
     images: [
@@ -34,8 +48,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Contact Reddy Book | B2B Casino & Gaming Consultants",
-    description: "Connect with Reddy Book's gaming consultants. Get started with our B2B casino platform, payment gateways, self-service solutions, and white label casino systems.",
+    title: "Contact Reddy Book | 24/7 Customer Support & Reddy Book Assistance",
+    description: "Contact Reddy Book for Get fast and reliable help from the Reddy Book support team 24/7.",
     images: ["https://reddybook.club/images/Logo.png"],
   },
 };

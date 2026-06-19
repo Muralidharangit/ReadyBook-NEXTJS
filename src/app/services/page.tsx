@@ -7,26 +7,24 @@ import B2BWhyChoose from "@/components/services/B2BWhyChoose";
 import B2BContact from "@/components/services/B2BContact";
 
 export const metadata = {
-  title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
-  description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
+  title: "Reddy Book Services | Sports Betting, Live Casino & Cricket Betting",
+  description: "Explore Reddy Book services including cricket betting, football betting, tennis betting, live betting, live casino games, secure transactions, fast withdrawals, and 24/7 customer support.",
   keywords: [
-    "Reddy Book B2B",
-    "Online Casino Payment Solutions",
-    "Self-Service Casino Solution",
-    "Multi-Provider Casino Integration",
-    "White Label Casino Solution",
-    "Managed Services by Reddy Book",
-    "Self-Service Casino Platform",
-    "Casino Game Aggregator",
-    "B2B Casino Platform",
-    "Reddy Book Operator ID"
+    "Reddy Book Services",
+    "Reddy Book Sports Betting",
+    "Reddy Book Cricket Betting",
+    "Reddy Book Football Betting",
+    "Reddy Book Tennis Betting",
+    "Reddy Book Live Betting",
+    "Reddy Book Live Casino",
+    "Reddy Book Slot Games"
   ],
   alternates: {
     canonical: "https://reddybook.club/services",
   },
   openGraph: {
-    title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
-    description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
+    title: "Reddy Book Services | Sports Betting, Live Casino & Cricket Betting",
+    description: "Explore Reddy Book services including cricket betting, football betting, tennis betting, live betting, live casino games, secure transactions, fast withdrawals, and 24/7 customer support.",
     url: "https://reddybook.club/services",
     siteName: "Reddy Book Exchange",
     images: [
@@ -41,8 +39,8 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "B2B Casino Solutions & Payment Gateway | Reddy Book",
-    description: "Explore Reddy Book's B2B casino platform solutions, white label setups, multi-provider integrations, secure payment processing, and managed betting services.",
+    title: "Reddy Book Services | Sports Betting, Live Casino & Cricket Betting",
+    description: "Explore Reddy Book services including cricket betting, football betting, tennis betting, live betting, live casino games, secure transactions, fast withdrawals, and 24/7 customer support.",
     images: ["https://reddybook.club/images/Logo.png"],
   },
 };
